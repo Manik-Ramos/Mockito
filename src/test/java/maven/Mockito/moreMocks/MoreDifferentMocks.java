@@ -10,7 +10,7 @@ import org.junit.Test;
 @SuppressWarnings("unchecked")
 public class MoreDifferentMocks {
 
-	//Mocks for List Interface
+	//Mocks for List Interface without Annotations
 	
 	//size() method
 	@Test
