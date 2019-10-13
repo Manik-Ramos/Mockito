@@ -1,6 +1,8 @@
 package maven.Mockito.moreMocks;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.*;
 import java.util.List;
 
@@ -47,5 +49,19 @@ public class MoreDifferentMocks {
 		List listMock = mock(List.class);
 		when(listMock.add(anyInt())).thenThrow(new RuntimeException("Exception"));
 		listMock.add(1);
+	}
+	
+	//with Business Driven Development(BDD)
+	@Test
+	public void testUsingBDD(){
+		//Given
+		List<String> listMock = mock(List.class);
+		given(listMock.get(anyInt())).willReturn("BDD Success");
+		
+		//When
+		String result = listMock.get(0);
+		
+		//Then
+		assertThat(result, is("BDD Success"));
 	}
 }

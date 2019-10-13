@@ -1,6 +1,8 @@
 package maven.Mockito.business;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.*;
 import java.util.Arrays;
 import java.util.List;
@@ -50,6 +52,22 @@ public class TodoBusinessImplMock {
 		List<String> todos = todoBusinessImpl.retrieveTodosRelatedToSpring("Manikandan1");
 		String []values = {"Learn Hibernate"};
 		assertArrayEquals(values, todos.toArray());
+	}
+	
+	@Test
+	public void testRetrievedTodosRelatedToSpring_using_BDD() {
+		//Given - contains all setup for the test
+		TodoService todoService = mock(TodoService.class);
+		List<String> todosList = Arrays.asList("Learn Spring","Learn Spring MVC","Learn Hibernate");
+		given(todoService.retrieveTodos("Manikandan1")).willReturn(todosList);
+		TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoService);
+		String []values = {"Learn Hibernate"};
+		
+		//When - holds the call to the method
+		List<String> todos = todoBusinessImpl.retrieveTodosRelatedToSpring("Manikandan1");
+		
+		//Then - Assertion
+		assertThat(todos.get(0), is(values[0]));
 	}
 
 }
